@@ -530,7 +530,7 @@ section {
 
 .service-box:hover {
     transform: translateY(-.7rem);
-
+    
 }
 
 .service-icon {
@@ -558,6 +558,16 @@ section {
     letter-spacing: 1px;
     color: #bdbdbd;
     line-height: 1.6;
+}
+.section-services .service-box img {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 8px; /* Optional: for rounded corners */
+}
+
+.section-services .service-box img:hover {
+    transform: scale(1.1); /* Makes the image "pop up" */
+    box-shadow: 0 8px 16px var(--hover-color); /* Adds shadow effect */
+    cursor: pointer; /* Changes cursor to pointer */
 }
 
 
