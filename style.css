@@ -7,7 +7,6 @@
     list-style: none;
     scroll-behavior: smooth;
     text-decoration: none;
-    overflow-x: hidden;
 }
 
 :root {
@@ -375,9 +374,13 @@ section {
 }
 
 .about .img-about img {
-    max-width: 550px;
+    width: 350px;
     height: auto;
 
+}
+
+.about-content{
+    margin-left: 0;
 }
 
 .about-content span {
@@ -1071,7 +1074,7 @@ footer a i {
         top: 13%; 
     }
     .about {
-        flex-direction: column-reverse;
+        flex-direction: column;
     }
     .skill-main {
         grid-template-columns: 1fr;
