@@ -1,3 +1,5 @@
+const e = require("./mixitup.min");
+
 let words = document.querySelectorAll(".word");
 words.forEach((word)=>{
     let letters = word.textContent.split("");
@@ -133,3 +135,31 @@ window.onscroll= ()=>{
 
  const scrollTop = document.querySelectorAll(".scroll-top");
  scrollTop.forEach((el)=>observer.observe(el));
+
+
+ const from = document.querySelector('form');
+ const name = document.getElementById('name');
+ const email = document.getElementById('email');
+ const country = document.getElementById('country');
+ const number = document.getElementById('number');
+ const message = document.getElementById('message');
+
+    function sendEmail(){
+        const bodyMessage = 'Name: ${name.value}<br> Email: ${email.value}<br> Coutry: ${country.value}<br> Phone Number: ${number.value}<br> Message: ${message.value}<br>';
+        Email.send({
+            Host : "smtp.elasticemail.com",
+            Username : "rpriranathunga@gmail.com",
+            Password : "30061E15F87C5987DECA2DE08A7F4AE8DEC4",
+            To : 'rpriranathunga@gmail.com',
+            From : "rpriranathunga@gmail.com",
+            Subject : subject.value,
+            Body : bodyMessage
+        }).then(
+          message => alert(message)
+        );
+    }
+    from.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        sendEmail();
+    })
