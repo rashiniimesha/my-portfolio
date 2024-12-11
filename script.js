@@ -1,165 +1,211 @@
-const e = require("./mixitup.min");
-
+// === Text Animation ===
 let words = document.querySelectorAll(".word");
-words.forEach((word)=>{
-    let letters = word.textContent.split("");
-    word.textContent="";
-    letters.forEach((letter)=>{
-        let span = document.createElement("span");
-        span.textContent = letter;
-        span.className = "letter";
-        word.append(span);
-
+if (words.length > 0) {
+    words.forEach((word) => {
+        let letters = word.textContent.split("");
+        word.textContent = "";
+        letters.forEach((letter) => {
+            let span = document.createElement("span");
+            span.textContent = letter;
+            span.className = "letter";
+            word.append(span);
+        });
     });
-});
 
-let currentWordIndex = 0;
-let maxWordIndex = words.length -1;
-words[currentWordIndex].style.opacity = "1";
+    let currentWordIndex = 0;
+    let maxWordIndex = words.length - 1;
+    words[currentWordIndex].style.opacity = "1";
 
+    let changeText = () => {
+        let currentWord = words[currentWordIndex];
+        let nextWord =
+            currentWordIndex === maxWordIndex ? words[0] : words[currentWordIndex + 1];
 
-let changeText = ()=>{
-    let currentWord = words[currentWordIndex];
-    let nextWord = currentWordIndex === maxWordIndex ? words[0] : words[currentWordIndex + 1];
+        Array.from(currentWord.children).forEach((letter, i) => {
+            setTimeout(() => {
+                letter.className = "letter out";
+            }, i * 80);
+        });
 
-    Array.from(currentWord.children).forEach((letter,i)=>{
-        setTimeout(()=>{
-            letter.className = "letter out";
-        },i * 80);
-    });
-    nextWord.style.opacity="1";
-    Array.from(nextWord.children).forEach((letter,i)=>{
-        letter.className = "letter behind";   
-        setTimeout(()=>{
-            letter.className = "letter in";  
-        },340 + i * 80);
-    });
-    currentWordIndex = currentWordIndex === maxWordIndex ? 0 : currentWordIndex + 1;
-};
+        nextWord.style.opacity = "1";
+        Array.from(nextWord.children).forEach((letter, i) => {
+            letter.className = "letter behind";
+            setTimeout(() => {
+                letter.className = "letter in";
+            }, 340 + i * 80);
+        });
 
-changeText();
-setInterval(changeText,3000)
+        currentWordIndex = currentWordIndex === maxWordIndex ? 0 : currentWordIndex + 1;
+    };
 
-
-// circle skill /////////////////////////////////////////////////////// 
-
-const circles = document.querySelectorAll('.circle');
-circles.forEach(elem=>{
-    var dots = elem.getAttribute("data-dots");
-    var marked = elem.getAttribute("data-percent");
-    var percent = Math.floor(dots*marked/100);
-    var points = "";
-    var rotate = 360 / dots;
+    changeText();
+    setInterval(changeText, 3000);
+}
 
 
-    for(let i = 0 ; i < dots ; i++){
-        points+= `<div class="points" style="--i:${i}; --rot:${rotate}deg"></div>`;
-        
+// === Circle Skill Animation ===
+const circles = document.querySelectorAll(".circle");
+circles.forEach((elem) => {
+    const dots = parseInt(elem.getAttribute("data-dots"));
+    const marked = parseInt(elem.getAttribute("data-percent"));
+    const percent = Math.floor((dots * marked) / 100);
+    const rotate = 360 / dots;
+
+    let points = "";
+    for (let i = 0; i < dots; i++) {
+        points += `<div class="points" style="--i:${i}; --rot:${rotate}deg"></div>`;
     }
+
     elem.innerHTML = points;
 
-    const pointsMarked = elem.querySelectorAll('.points');
-    for(let i = 0; i<percent ; i++){
-        pointsMarked[i].classList.add('marked')
+    const pointsMarked = elem.querySelectorAll(".points");
+    for (let i = 0; i < percent; i++) {
+        pointsMarked[i].classList.add("marked");
     }
- })
-
- // mix it up portfolio section 
- var mixer = mixitup('.portfolio-gallery');
+});
 
 
+// === MixItUp Portfolio ===
+if (typeof mixitup !== "undefined") {
+    mixitup(".portfolio-gallery");
+}
 
- // active menu  /////////////////////////////////////////////////////// 
 
- let menuLi = document.querySelectorAll('header ul li a');
- let section = document.querySelectorAll('section');
+// === Active Menu Highlight ===
+const menuLi = document.querySelectorAll("header ul li a");
+const sections = document.querySelectorAll("section");
 
- function activeMenu(){
-    let len = section.length;
-    while(--len && window.scrollY + 97 < section[len].offsetTop){}
-    menuLi.forEach(sec =>sec.classList.remove("active"));
+function activeMenu() {
+    let len = sections.length;
+    while (--len && window.scrollY + 97 < sections[len].offsetTop) {}
+    menuLi.forEach((sec) => sec.classList.remove("active"));
     menuLi[len].classList.add("active");
-
 }
 
- activeMenu();
- window.addEventListener("scroll",activeMenu);
+activeMenu();
+window.addEventListener("scroll", activeMenu);
 
 
- // sticky navbar ///////////////////////////////////////////////////////
- 
- 
- const header = document.querySelector("header");
- window.addEventListener("scroll",function(){
-    header.classList.toggle("sticky",window.scrollY > 50)
- })
+// === Sticky Navbar ===
+const header = document.querySelector("header");
+window.addEventListener("scroll", function () {
+    header.classList.toggle("sticky", window.scrollY > 50);
+});
 
-// toggle icon navbar ///////////////////////////////////////////////////////
 
-let menuIcon = document.querySelector("#menu-icon");
-let navlist =  document.querySelector(".navlist");
- 
+// === Toggle Navbar Menu ===
+const menuIcon = document.querySelector("#menu-icon");
+const navList = document.querySelector(".navlist");
 
-menuIcon.onclick = ()=>{
+menuIcon.onclick = () => {
     menuIcon.classList.toggle("bx-x");
-    navlist.classList.toggle("open");
-}
+    navList.classList.toggle("open");
+};
 
-
-window.onscroll= ()=>{
+window.onscroll = () => {
     menuIcon.classList.remove("bx-x");
-    navlist.classList.remove("open");
-}
+    navList.classList.remove("open");
+};
 
 
-
- // parallax  ///////////////////////////////////////////////////////
-
- const observer = new IntersectionObserver((entries)=>{
-    entries.forEach((entry)=>{
-        if(entry.isIntersecting){
+// === Parallax Animation ===
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
             entry.target.classList.add("show-items");
-        }else{
+        } else {
             entry.target.classList.remove("show-items");
         }
     });
- });
+});
+
+const scrollScale = document.querySelectorAll(".scroll-scale");
+scrollScale.forEach((el) => observer.observe(el));
+
+const scrollBottom = document.querySelectorAll(".scroll-bottom");
+scrollBottom.forEach((el) => observer.observe(el));
 
 
- const scrollScale = document.querySelectorAll(".scroll-scale");
- scrollScale.forEach((el)=>observer.observe(el));
+// === Form Validation and Email Sending ===
+const from = document.querySelector('form');
+const name = document.getElementById('name');
+const email = document.getElementById('email');
+const country = document.getElementById('country');
+const number = document.getElementById('number');
+const message = document.getElementById('message');
 
+function sendEmail() {
+    const bodyMessage = `Name: ${fullname.value}<br> Email: ${email.value}<br> Country: ${country.value}<br> Phone Number: ${number.value}<br> Message: ${message.value}<br>`;
 
- const scrollBottom = document.querySelectorAll(".scroll-bottom");
- scrollBottom.forEach((el)=>observer.observe(el));
+    // Use EmailJS service to send the email
+    emailjs.send("service_e28ucum", "template_ylpjo7o", {
+        name: fullname.value,
+        email: email.value,
+        country: country.value,
+        number: number.value,
+        message: message.value,
+    })    .then((response) => {
+        console.log("Email sent successfully:", response);
+        Swal.fire({
+            title: "Success!",
+            text: "Message sent successfully!",
+            icon: "success"
+        });
+    }, (error) => {
+        console.error("Error sending email:", error);
+        Swal.fire({
+            title: "Error!",
+            text: "Message not sent. Please try again.",
+            icon: "error"
+        });
+    });
+}
 
- const scrollTop = document.querySelectorAll(".scroll-top");
- scrollTop.forEach((el)=>observer.observe(el));
+function checkInputs() {
+    const items = document.querySelectorAll(".item");
 
+    for (const item of items) {
+        if (item.value == "") {
+            item.classList.add("error");
+            item.parentElement.classList.add("error");
+        }
 
- const from = document.querySelector('form');
- const name = document.getElementById('name');
- const email = document.getElementById('email');
- const country = document.getElementById('country');
- const number = document.getElementById('number');
- const message = document.getElementById('message');
+        if (items[1].value != "") {
+            checkEmail();
+        }
+        items[1].addEventListener("keyup", () => {
+            checkEmail();
+        });
 
-    function sendEmail(){
-        const bodyMessage = 'Name: ${name.value}<br> Email: ${email.value}<br> Coutry: ${country.value}<br> Phone Number: ${number.value}<br> Message: ${message.value}<br>';
-        Email.send({
-            Host : "smtp.elasticemail.com",
-            Username : "rpriranathunga@gmail.com",
-            Password : "30061E15F87C5987DECA2DE08A7F4AE8DEC4",
-            To : 'rpriranathunga@gmail.com',
-            From : "rpriranathunga@gmail.com",
-            Subject : subject.value,
-            Body : bodyMessage
-        }).then(
-          message => alert(message)
-        );
+        item.addEventListener("keyup", () => {
+            if (item.value != "") {
+                item.classList.remove("error");
+                item.parentElement.classList.remove("error");
+            } else {
+                item.classList.add("error");
+                item.parentElement.classList.add("error");
+            }
+        });
     }
-    from.addEventListener("submit", (e) => {
-        e.preventDefault();
+}
 
-        sendEmail();
-    })
+function checkEmail() {
+    const emailRegex = /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,3})(\.[a-z]{2,3})?$/;
+
+    if (!email.value.match(emailRegex)) {
+        email.classList.add("error");
+        email.parentElement.classList.add("error");
+    } else {
+        email.classList.remove("error");
+        email.parentElement.classList.remove("error");
+    }
+}
+
+from.addEventListener("submit", (e) => {
+    e.preventDefault();
+    checkInputs();
+
+    if (email.value.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)) {
+        sendEmail(); // Send email after validation
+    }
+});

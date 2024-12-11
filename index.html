@@ -539,26 +539,22 @@
 
     <section id="contact" class="content">
         <div class="main-text scroll-scale">
-
             <h2>Contact Me</h2>
         </div>
-
+    
         <form action="#" class="scroll-bottom">
-            <input id="name" type="text" placeholder="Name.." autocomplete="on">
-            <input id="email" type="text" placeholder="Email.." autocomplete="on" required>
-            <input id="country" type="text" placeholder="Country.." autocomplete="on">
-            <input id="number" type="number" placeholder="Mobile Number.." autocomplete="on" required>
-            <textarea name="" id="message" cols="30" rows="10" placeholder=" 
-                            
-            
-                                        Type the Message! 
-
-                                   " required></textarea>
+            <input type="text" id="fullname" class="item" placeholder="Name.." autocomplete="on">
+            <input type="text" id="email" class="item" placeholder="Email.." autocomplete="on" required>
+            <input type="text" id="country" class="item" placeholder="Country.." autocomplete="on">
+            <input type="number" id="number" class="item" placeholder="Mobile Number.." autocomplete="on" required>
+            <textarea id="message" class="item" cols="30" rows="10" placeholder="Type the message!" required></textarea>
             <div class="btn-box formBtn">
                 <button type="submit" class="btn">Send Message</button>
             </div>
         </form>
+        
     </section>
+    
 
     <!-- footer website ----------------------------->
 
@@ -569,6 +565,8 @@
 
     <script src="mixitup.min.js"></script>
     <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
