@@ -1148,3 +1148,95 @@ footer a i {
         font-size: 1rem;
     }
 }
+
+/* Responsive Design */
+
+/* For tablets and small desktops */
+@media screen and (max-width: 992px) {
+    header {
+        padding: 10px 5%;
+    }
+
+    .home {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .home-image {
+        margin-top: 20px;
+    }
+
+    .about {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about .img-about {
+        margin-bottom: 20px;
+    }
+
+    .section-services {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .skills .skill-cont {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .portfolio-gallery {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+/* For mobile phones */
+@media screen and (max-width: 768px) {
+    .navlist {
+        display: none;
+    }
+
+    #menu-icon {
+        display: block;
+    }
+
+    section {
+        padding: 50px 5%;
+    }
+
+    .btn-box {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .social-icons {
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* For very small devices */
+@media screen and (max-width: 576px) {
+    .home-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .home-content p {
+        font-size: 0.9rem;
+    }
+
+    .about-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .section-services .service-box-1,
+    .section-services .service-box-2 {
+        padding: 1rem;
+    }
+}
